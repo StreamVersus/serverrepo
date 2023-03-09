@@ -15,6 +15,8 @@ public class onPlayerJoin implements Listener {
     public void onPlayerJoinEvent(PlayerJoinEvent event){
         NamespacedKey key = new NamespacedKey(getPlugin(test.class), "deathcounter");
         Player p = event.getPlayer();
-        p.getPersistentDataContainer().set(key, PersistentDataType.INTEGER, 0);
+        if(p.getPersistentDataContainer().get(key, PersistentDataType.INTEGER) == null){
+            p.getPersistentDataContainer().set(key, PersistentDataType.INTEGER, 0);
+        }
     }
 }
