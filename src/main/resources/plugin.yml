@@ -1,4 +1,4 @@
 name: Com.server.test
 version: '${project.version}'
-main: com.server.test.com.server.test.Com.server.test
+main: com.server.test.test
 api-version: 1.19
