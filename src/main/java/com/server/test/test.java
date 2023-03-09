@@ -1,4 +1,4 @@
-package com.server.test.com.server.test.Com.server;
+package com.server.test;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
