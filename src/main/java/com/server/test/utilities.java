@@ -1,6 +1,5 @@
 package com.server.test;
 
-import de.tr7zw.nbtapi.NBT;
 import de.tr7zw.nbtapi.NBTItem;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -16,7 +15,7 @@ import java.util.List;
 import static com.server.test.test.plugin;
 
 public class utilities {
-    public static Object getPDCData(String namekey, Player p, PersistentDataType type) {
+    public static Object getPDCData(String namekey, Player p, PersistentDataType<Integer, Integer> type) {
         NamespacedKey key = new NamespacedKey(plugin, namekey);
         return p.getPersistentDataContainer().get(key, type);
     }
@@ -37,7 +36,7 @@ public class utilities {
         p.getPersistentDataContainer().set(key, PersistentDataType.STRING, content);
     }
     @SuppressWarnings("deprecation")
-    public static void makeasWeapon(
+    public static ItemStack makeasWeapon(
             ItemStack stack,
             List<String> lore,
             String display,
@@ -47,20 +46,23 @@ public class utilities {
             Integer soundtype,
             Integer damage){
         ItemMeta meta  = stack.getItemMeta();
-        NBTItem nbti = new NBTItem(stack);
-        nbti.setString("model", model);
+
 
         meta.setUnbreakable(true);
         meta.setLore(lore);
-        meta.setDisplayName(ChatColor.DARK_BLUE + display);
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE);        // setting pdc tags
+        meta.setDisplayName(ChatColor.BLUE + display);
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE);
+        // setting pdc tags
         setPDCData("clipsize", meta, clipsize);
         setPDCData("ammo", meta, 0);
         setPDCData("ammotype", meta, ammotype);
         setPDCData("soundtype", meta, soundtype);
         setPDCData("damage", meta, damage);
-
+        NBTItem nbti = new NBTItem(stack);
+        nbti.setBoolean("Weapon", true);
+        nbti.setString("model", model);
         stack.setItemMeta(meta);
+        return nbti.getItem();
     }
     public static ItemStack createitemstack(){
         return new ItemStack(Material.WOODEN_SWORD);
