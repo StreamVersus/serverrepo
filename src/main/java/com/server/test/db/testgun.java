@@ -14,7 +14,7 @@ public class testgun {
         lore.add("Тестовый плейсхолдер");
         lore.add("Использует AmmoPlaceHolder");
         lore.add("Если нашли этот предмет, обратитесь к администрации");
-        Weapon testwp = new Weapon(createitemstack(), lore, "testgun", "testgun", 10, 0, 0);
+        Weapon testwp = new Weapon(createitemstack(), lore, "testgun", "testgun", 10, 0, 0, 10);
         Bukkit.getServer().getConsoleSender().sendMessage("testgun");
         return testwp;
     }
