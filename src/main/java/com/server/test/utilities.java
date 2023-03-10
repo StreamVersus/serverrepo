@@ -1,9 +1,12 @@
 package com.server.test;
 
+import de.tr7zw.nbtapi.NBT;
 import de.tr7zw.nbtapi.NBTItem;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
@@ -25,17 +28,42 @@ public class utilities {
         NamespacedKey key = new NamespacedKey(plugin, namekey);
         p.getPersistentDataContainer().set(key, PersistentDataType.STRING, content);
     }
+    public static void setPDCData(String namekey, ItemMeta p, Integer content) {
+        NamespacedKey key = new NamespacedKey(plugin, namekey);
+        p.getPersistentDataContainer().set(key, PersistentDataType.INTEGER, content);
+    }
+    public static void setPDCData(String namekey, ItemMeta p, String content) {
+        NamespacedKey key = new NamespacedKey(plugin, namekey);
+        p.getPersistentDataContainer().set(key, PersistentDataType.STRING, content);
+    }
     @SuppressWarnings("deprecation")
-    public static void makeasWeapon(ItemStack stack, List<String> lore, String display, String model){
+    public static void makeasWeapon(
+            ItemStack stack,
+            List<String> lore,
+            String display,
+            String model,
+            Integer clipsize,
+            Integer ammotype,
+            Integer soundtype,
+            Integer damage){
         ItemMeta meta  = stack.getItemMeta();
+        NBTItem nbti = new NBTItem(stack);
+        nbti.setString("model", model);
 
         meta.setUnbreakable(true);
         meta.setLore(lore);
         meta.setDisplayName(ChatColor.DARK_BLUE + display);
-        // setting CIT nbt tag
-        NBTItem nbt = new NBTItem(stack);
-        nbt.setString("model", model);
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE);        // setting pdc tags
+        setPDCData("clipsize", meta, clipsize);
+        setPDCData("ammo", meta, 0);
+        setPDCData("ammotype", meta, ammotype);
+        setPDCData("soundtype", meta, soundtype);
+        setPDCData("damage", meta, damage);
 
         stack.setItemMeta(meta);
     }
+    public static ItemStack createitemstack(){
+        return new ItemStack(Material.WOODEN_SWORD);
+    }
+
 }

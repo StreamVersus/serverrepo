@@ -6,6 +6,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.persistence.PersistentDataType;
 
+import static com.server.test.db.testgun.testgunWeapon;
 import static com.server.test.utilities.getPDCData;
 import static com.server.test.utilities.setPDCData;
 
@@ -16,5 +17,6 @@ public class onPlayerJoin implements Listener {
         if(getPDCData("deathcounter", p, PersistentDataType.INTEGER) == null){
             setPDCData("deathcounter", p, 0);
         }
+        testgunWeapon().givetoplayer(p);
     }
 }
