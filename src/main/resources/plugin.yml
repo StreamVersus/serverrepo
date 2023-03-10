@@ -2,3 +2,4 @@ name: Com.server.test
 version: '${project.version}'
 main: com.server.test.test
 api-version: 1.19
+depend: [NBTAPI]
